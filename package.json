@@ -4,7 +4,7 @@
   "description": "Querying Data, Migrations and Seeding",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js"
+    "server": "nodemon"
   },
   "author": "Sharanjit Sandhu",
   "license": "ISC",
