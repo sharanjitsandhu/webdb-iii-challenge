@@ -12,6 +12,7 @@ const knexConfig = {
 
 const db = knex(knexConfig);
 
+// [GET] /api/cohorts This route will return an array of all cohorts.
 router.get("/", (req, res) => {
   db("cohorts")
     .then(cohorts => {
@@ -24,6 +25,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// [GET] /api/cohorts/:id This route will return the cohort with the matching id.
 router.get("/:id", (req, res) => {
   const cohortId = req.params.id;
   db("cohorts")
@@ -45,6 +47,29 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// [GET] /api/cohorts/:id/students returns all students for the cohort with the specified id.
+router.get("/:id/students", (req, res) => {
+  const cohortId = req.params.id;
+  db("cohorts")
+    .where({ id: cohortId })
+    .first()
+    .then(cohort => {
+      if (cohort) {
+        res.status(200).json(cohort);
+      } else {
+        res.status(404).json({
+          message: "The cohort with the specified ID does not exist."
+        });
+      }
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .json({ error: "The cohort information could not be retrieved." });
+    });
+});
+
+// [POST] /api/cohorts This route should save a new cohort to the database.
 router.post("/", (req, res) => {
   db("cohorts")
     .insert(req.body)
@@ -64,6 +89,7 @@ router.post("/", (req, res) => {
     });
 });
 
+// [PUT] /api/cohorts/:id This route will update the cohort with the matching id using information sent in the body of the request.
 router.put("/:id", (req, res) => {
   db("cohorts")
     .where({ id: req.params.id })
@@ -86,6 +112,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// [DELETE] /api/cohorts/:id This route should delete the specified cohort.
 router.delete("/:id", (req, res) => {
   db("cohorts")
     .where({ id: req.params.id })

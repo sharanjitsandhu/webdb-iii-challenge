@@ -14,8 +14,12 @@ exports.up = function(knex, Promise) {
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
 
-    tbl.timestamps(true, true);
+    // tbl.timestamps(true, true);
   });
 };
 
 exports.down = function(knex, Promise) {};
+
+// id: primary key, auto-increments.
+// name: text, required.
+// cohort_id: references the id in the cohorts table.

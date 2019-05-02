@@ -9,7 +9,7 @@ exports.up = function(knex, Promise) {
 
     tbl.unique();
 
-    tbl.timestamps(true, true); //create_at and updated_at
+    // tbl.timestamps(true, true); //create_at and updated_at
   });
 };
 
@@ -17,3 +17,6 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return knex.schema.dropTableIfExists("cohorts");
 };
+
+// id: primary key, auto-increments.
+// name: text, required.
